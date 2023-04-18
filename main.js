@@ -17,16 +17,46 @@ var cat = {
     y: 200,
     width: 50,
     height: 50,
+    velocity : 0, // 캐릭터 속도
     draw() {
         // ctx.fillStyle = 'green';
         // ctx.fillRect(this.x,this.y,this.width,this.height);
         ctx.drawImage(img1, this.x, this.y)
+
+        if (this.y + this.height >= canvas.height) {
+            jump = false; // 캐릭터가 땅에 닿아있으면 jump 변수를 true로 변경
+            this.velocity = 0;
+            onGround = true;
+        }
     }
-}
+};
+
+var onGround = {
+    x: 0,
+    y: 200,
+    width : canvas.width,
+    height : canvas.height - 200,
+    draw() {
+        ctx.fillStyle = 'green';
+        ctx.fillRect(this.x,this.y,this.width,this.height);
+    }
+} // 캐릭터가 땅과 접촉한 상태를 나타내는 변수
 
 // 캐릭터 그리기
 cat.draw();
 
+function jumpCat() {
+    if (onGround) {
+        cat.velocity = -20; // 점프 시작 시 캐릭터의 속도 설정
+        onGround = false; // 캐릭터가 땅과 접촉한 상태에서는 점프할 수 없도록 설정
+    }
+}
+
+document.addEventListener('keydown', function(e) {
+    if (e.code === 'Space') {
+        jumpCat();
+    }
+})
 
 
 // 장애물 이미지 불러오기
@@ -98,12 +128,20 @@ function frame() {
         jumpTimer++;
     }
     if (jump == false) { // 200px 이상으로 올라가지 않도록
-        if(cat.y < 200)
+        if(cat.y < onGround)
         cat.y++;
     }
     if(jumpTimer > 50) {
         jump = false;
         jumpTimer = 0;
+    }
+    if(!onGround) {
+        cat.velocity += 1;
+        cat.y += cat.velocity;
+        if (cat.y + cat.height >= canvas.height) {
+            cat.y = canvas.height - cat.height;
+            onGround = true;
+        }
     }
     cat.draw();
 }
@@ -123,8 +161,8 @@ function 충돌(cat, wave) {
 
 var jump = false;
 
-document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space') {
-        jump = true;
-    }
-})
+// document.addEventListener('keydown', function(e) {
+//     if (e.code === 'Space') {
+//         jumpCat = true;
+//     }
+// })
