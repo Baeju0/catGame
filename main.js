@@ -1,8 +1,7 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-// 캐릭터 점프 중복 가능
-// 공룡이 달리는 애니메이션 -> frame으로 구현
+// 고양이가 달리는 애니메이션 -> frame으로 구현
 // 점수 추가
 
 canvas.width = window.innerWidth - 100;
@@ -16,7 +15,7 @@ var cat = {
     x: 10,
     y: 200,
     width: 100,
-    height: 65,
+    height: 50,
     draw() {
         // ctx.fillStyle = 'green';
         // ctx.fillRect(this.x,this.y,this.width,this.height);
