@@ -2,7 +2,6 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
 // 고양이가 달리는 애니메이션 -> frame으로 구현
-// 점수 추가
 
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
@@ -52,6 +51,16 @@ var wave = new Wave();
 wave.draw();
 
 
+var score = 0; // 점수
+
+function drawScore() { // 점수 그리기
+    ctx.font = "20px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("기록: " + score, canvas.width - 150, 50);
+}
+
+
+
 var timer = 0;
 var wave2 = [];
 var jumpTimer = 0;
@@ -64,15 +73,18 @@ function frame() {
  animation = requestAnimationFrame(frame) // 웹 브라우저 기본 기능 requestAnimationFrame() 사용
  timer ++;
 
+
  // canvas 초기화 (캐릭터 이동 잔상 지우기)
  ctx.clearRect(0,0,canvas.width,canvas.height);
 
  // 1초에 한 번 wave 그리기
  if (timer % 200 === 0 ){ // 120프레임 중 한 번
      var wave = new Wave();
+
      
      // wave2 배열 생성 후 catcus 계속 생성해서 보관
      wave2.push(wave);
+     score++;
      }
 
     wave2.forEach((a, i, o)=> { // cacuts2 배열에 있는 거 다 그리기
@@ -122,6 +134,8 @@ function frame() {
     }
 
     cat.draw();
+    drawScore();
+
 }
 
 frame();
@@ -133,6 +147,8 @@ function 충돌(cat, wave) {
     if (x축차이 < 0 && y축차이 < 0) {
         ctx.clearRect(0,0, canvas.width, canvas.height); // 캔버스 초기화
         cancelAnimationFrame(animation) // 애니메이션 정지
+    } else {
+    score ++;
     }
 }
 
