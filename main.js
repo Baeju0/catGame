@@ -7,7 +7,8 @@ canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
 var img1 = new Image();
-img1.src = 'cat.png';
+img1.src = 'cat_m1.png';
+
 
 // 캐릭터 등장 좌표, 사이즈, 속성
 var cat = {
@@ -72,7 +73,6 @@ var jumping = false; // 점프 중인가?
 function frame() {
  animation = requestAnimationFrame(frame) // 웹 브라우저 기본 기능 requestAnimationFrame() 사용
  timer ++;
-
 
  // canvas 초기화 (캐릭터 이동 잔상 지우기)
  ctx.clearRect(0,0,canvas.width,canvas.height);
