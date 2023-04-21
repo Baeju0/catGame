@@ -1,13 +1,16 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-// 고양이가 달리는 애니메이션 -> frame으로 구현
+// 고양이가 점프할 때 애니메이션 잠깐 정지하기
 
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
 var img1 = new Image();
 img1.src = 'cat_m1.png';
+
+var img3 = new Image();
+img3.src = 'cat_m2.png';
 
 
 // 캐릭터 등장 좌표, 사이즈, 속성
@@ -16,10 +19,18 @@ var cat = {
     y: 200,
     width: 100,
     height: 50,
+    move : img1, // 기본 cat 이미지
     draw() {
         // ctx.fillStyle = 'green';
         // ctx.fillRect(this.x,this.y,this.width,this.height);
-        ctx.drawImage(img1, this.x, this.y)
+        ctx.drawImage(this.move, this.x, this.y)
+    },
+    changeImg() { // cat 움직이는 애니메이션 추가
+        if (this.move == img1) {
+            this.move = img3;
+        }else {
+            this.move = img1;
+        }
     }
 }
 
@@ -74,13 +85,16 @@ function frame() {
  animation = requestAnimationFrame(frame) // 웹 브라우저 기본 기능 requestAnimationFrame() 사용
  timer ++;
 
+ if (timer % 15 === 0) { // 15프레임 중 한 번(cat 애니메이션 구현)
+        cat.changeImg();
+ }
+
  // canvas 초기화 (캐릭터 이동 잔상 지우기)
  ctx.clearRect(0,0,canvas.width,canvas.height);
 
  // 1초에 한 번 wave 그리기
  if (timer % 200 === 0 ){ // 120프레임 중 한 번
      var wave = new Wave();
-
      
      // wave2 배열 생성 후 catcus 계속 생성해서 보관
      wave2.push(wave);
