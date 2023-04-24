@@ -1,8 +1,6 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 
-// 고양이가 점프할 때 애니메이션 잠깐 정지하기
-
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
@@ -80,6 +78,7 @@ var jumpHeight = 100;
 var animation;
 var jumping = false; // 점프 중인가?
 
+
 // 1초에 60번 코드 실행하기
 function frame() {
  animation = requestAnimationFrame(frame) // 웹 브라우저 기본 기능 requestAnimationFrame() 사용
@@ -134,6 +133,7 @@ function frame() {
         if (cat.y > jumpHeight) {
             cat.y -= 2; // 점프 속도
             jumpTimer++;
+            cat.move = img1; // 점프 중 애니메이션 정지
         } else {
             jump = false;
             jumpTimer = 0;
@@ -142,8 +142,10 @@ function frame() {
     } else {
         if(cat.y < 200) {
             cat.y++;
+            cat.move = img1;
         } else {
             jumping = false; // 점프 끝
+
         }
     }
 
