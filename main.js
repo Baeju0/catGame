@@ -7,8 +7,8 @@ canvas.height = window.innerHeight - 100;
 var img1 = new Image();
 img1.src = 'cat_m1.png';
 
-var img3 = new Image();
-img3.src = 'cat_m2.png';
+var img2 = new Image();
+img2.src = 'cat_m2.png';
 
 
 // 캐릭터 등장 좌표, 사이즈, 속성
@@ -25,7 +25,7 @@ var cat = {
     },
     changeImg() { // cat 움직이는 애니메이션 추가
         if (this.move == img1) {
-            this.move = img3;
+            this.move = img2;
         }else {
             this.move = img1;
         }
@@ -38,8 +38,8 @@ cat.draw();
 
 
 // 장애물 이미지 불러오기
-var img2 = new Image();
-img2.src = 'wave.png';
+var img3 = new Image();
+img3.src = 'wave.png';
 
 // 장애물 속성
 class Wave {
@@ -52,7 +52,7 @@ class Wave {
     }
     draw() {
         // 이미지를 var로 선언 후 밑의 코드처럼 사용
-        ctx.drawImage(img2, this.x, this.y)
+        ctx.drawImage(img3, this.x, this.y)
     }
 }
 
