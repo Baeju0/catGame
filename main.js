@@ -41,6 +41,12 @@ cat.draw();
 var img3 = new Image();
 img3.src = 'wave.png';
 
+var img4 = new Image();
+img4.src = 'wave2.png';
+
+var img5 = new Image();
+img5.src = 'wave3.png';
+
 // 장애물 속성
 class Wave {
     constructor() {
@@ -49,10 +55,23 @@ class Wave {
         this.y = 200;
         this.width = 50;
         this.height = 50;
+        this.animation = [img3, img4, img5]; // 이미지 배열 넣기
+        this.animationIndex = 0; // 기본 이미지
+        this.animationDelay = 7; // 애니메이션 속도
+        this.animationDelayCount = 0; // 애니메이션 속도 카운트
     }
     draw() {
         // 이미지를 var로 선언 후 밑의 코드처럼 사용
-        ctx.drawImage(img3, this.x, this.y)
+        ctx.drawImage(this.animation[this.animationIndex], this.x, this.y);
+    
+        this.animationDelayCount++;
+        if(this.animationDelayCount >= this.animationDelay) {
+            this.animationDelayCount = 0;
+            this.animationIndex++;
+            if (this.animationIndex >= this.animation.length) {
+                this.animationIndex = 0;
+            }
+        }
     }
 }
 
@@ -86,6 +105,7 @@ function frame() {
 
  if (timer % 15 === 0) { // 15프레임 중 한 번(cat 애니메이션 구현)
         cat.changeImg();
+        wave.animationIndex++;
  }
 
  // canvas 초기화 (캐릭터 이동 잔상 지우기)
@@ -113,6 +133,11 @@ function frame() {
         충돌(cat, a);
 
         a.draw();
+
+        if (timer % 15 === 0) {
+            cat.changeImg();
+            wave.changeImg();
+        }
     })
 
     // 스페이스바 누를 시 캐릭터 점프 기능
