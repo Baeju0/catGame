@@ -85,7 +85,7 @@ var score = 0; // 점수
 function drawScore() { // 점수 그리기
     ctx.font = "20px Arial";
     ctx.fillStyle = "black";
-    ctx.fillText("기록: " + score, canvas.width - 150, 50);
+    ctx.fillText("기록: " + score, 500, 50);
 }
 
 
