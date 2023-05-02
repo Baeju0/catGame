@@ -102,6 +102,7 @@ var jumping = false; // 점프 중인가?
 function frame() {
  animation = requestAnimationFrame(frame) // 웹 브라우저 기본 기능 requestAnimationFrame() 사용
  timer ++;
+ score++;
 
  if (timer % 15 === 0) { // 15프레임 중 한 번(cat 애니메이션 구현)
         cat.changeImg();
@@ -117,7 +118,6 @@ function frame() {
      
      // wave2 배열 생성 후 catcus 계속 생성해서 보관
      wave2.push(wave);
-     score++;
      }
 
     wave2.forEach((a, i, o)=> { // cacuts2 배열에 있는 거 다 그리기
